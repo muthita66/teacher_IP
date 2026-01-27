@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinAI - ระบบบันทึกคะแนน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary-color: #632b2b;
+            --sidebar-width: 260px;
+            --accent-blue: #2e41b6;
+            --bg-light: #f4f7fe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+        }
+
+        /* Sidebar (คงเดิม) */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            height: 100vh;
+            position: fixed;
+            border-right: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            padding: 25px 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu {
+            flex-grow: 1;
+            padding: 10px 0;
+        }
+
+        .menu-item {
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .menu-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 20px;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .header-banner {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Card & Filters - จุดที่แก้ไขการจัดวาง */
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            /* แก้ไขจาก center เป็น flex-start เพื่อให้ชิดซ้าย */
+            justify-content: flex-start; 
+            width: 100%;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        select {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 20px; 
+            outline: none;
+            background: white;
+            min-width: 100px;
+            cursor: pointer;
+        }
+
+        .select-subject {
+            min-width: 250px;
+            border-radius: 8px;
+        }
+
+        .btn-add-col {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto; /* ดันปุ่มเพิ่มงานไปชิดขวาสุดของแถว */
+        }
+
+        /* Table Style (คงเดิม) */
+        .table-section {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .table-info-bar {
+            background-color: #e8efff;
+            padding: 12px 20px;
+            color: var(--accent-blue);
+            font-weight: bold;
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #2e41b6;
+            color: white;
+            padding: 15px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            border: 1px solid #eee;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .score-input {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .total-cell {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .btn-save {
+            background: #1b854d;
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            float: right;
+            margin-top: 20px;
+        }
+
+        /* Modal (คงเดิม) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 25px;
+            width: 400px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="logo-section">
+            <i class="fas fa-graduation-cap"></i>
+            <div class="logo-text">
+                <h3>WinAI International</h3>
+            </div>
+        </div>
+        <nav class="menu">
+            <a href="#" class="menu-item"><i class="fas fa-users"></i> รายชื่อนักเรียน</a>
+            <a href="#" class="menu-item active"><i class="far fa-edit"></i> กรอกคะแนน</a>
+            <a href="#" class="menu-item"><i class="fas fa-medal"></i> ตัดเกรด</a>
+        </nav>
+        <div class="logout" onclick="handleLogout()">
+            <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-banner">
+            <i class="fas fa-edit"></i> ระบบบันทึกคะแนนนักเรียน
+        </div>
+
+        <div class="card">
+            <div class="filter-section">
+                <div class="filter-row">
+                    <span class="filter-label">ปีการศึกษา :</span>
+                    <select>
+                        <option>2567</option>
+                        <option>2568</option>
+                    </select>
+
+                    <span class="filter-label">ภาคเรียนที่ :</span>
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+
+                <div class="filter-row">
+                    <span class="filter-label" style="color: blue;">เลือกชั้นเรียน :</span>
+                    <select>
+                        <option>มัธยมศึกษาชั้นปีที่ 1</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 2</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 3</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 4</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 5</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 6</option>
+                    </select>
+
+                    <span class="filter-label" style="color: blue;">เลือกวิชา :</span>
+                    <select id="subjectSelect" class="select-subject" onchange="updateUI()">
+                        <option value="ว10101 - วิทยาศาสตร์">ว10101 - วิทยาศาสตร์</option>
+                        <option value="ค10101 - คณิตศาสตร์">ค10101 - คณิตศาสตร์</option>
+                        <option value="อ10101 - ภาษาอังกฤษ">อ10101 - ภาษาอังกฤษ</option>
+                    </select>
+
+                    <button class="btn-add-col" onclick="openModal()">
+                        <i class="fas fa-plus-circle"></i> เพิ่มช่องงาน/สอบ
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <div id="displaySubject" class="table-info-bar">ว10101 - วิทยาศาสตร์</div>
+            <table id="mainTable">
+                <thead>
+                    <tr id="headerRow">
+                        <th width="70">เลขที่</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th id="totalHeader" width="100">รวม</th>
+                    </tr>
+                </thead>
+                <tbody id="studentList">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="workModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 15px;">รายละเอียดงานใหม่</h3>
+            <div class="form-group">
+                <label>ประเภท:</label>
+                <select id="workType">
+                    <option value="งาน">คะแนนงาน</option>
+                    <option value="สอบ">คะแนนสอบ</option>
+                </select>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <label>ชื่อ:</label>
+                <input type="text" id="workName" placeholder="เช่น งานที่ 1" style="padding:8px; border-radius:5px; border:1px solid #ccc;">
+                <label>คะแนนเต็ม:</label>
+                <input type="number" id="maxScore" value="10" min="1" style="padding:8px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                <button onclick="closeModal()" style="padding:8px 15px; cursor:pointer;">ยกเลิก</button>
+                <button class="btn-add-col" onclick="confirmAddColumn()" style="margin-left:0;">ยืนยันเพิ่ม</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const students = [
+            { no: 1, name: "เด็กชายฉนวน กันไฟ" },
+            { no: 2, name: "เด็กชายธนวัฒน์ไชย แม่น้ำปิง" },
+            { no: 3, name: "เด็กชายไชยพศ ชาละวัน" },
+            { no: 4, name: "เด็กหญิงมูตี้ ปาละมี" }
+        ];
+
+        window.onload = () => renderStudents();
+
+        function renderStudents() {
+            const tbody = document.getElementById('studentList');
+            tbody.innerHTML = students.map(s => `
+                <tr>
+                    <td>${s.no}</td>
+                    <td style="text-align:left; padding-left:20px;">${s.name}</td>
+                    <td class="total-cell">0</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateUI() {
+            document.getElementById('displaySubject').innerText = document.getElementById('subjectSelect').value;
+        }
+
+        function openModal() { document.getElementById('workModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('workModal').style.display = 'none'; }
+
+        function confirmAddColumn() {
+            const name = document.getElementById('workName').value || "งาน";
+            const max = parseFloat(document.getElementById('maxScore').value) || 10;
+            const headerRow = document.getElementById('headerRow');
+            const totalHeader = document.getElementById('totalHeader');
+            const tbody = document.getElementById('studentList');
+
+            const newTh = document.createElement('th');
+            newTh.innerHTML = `${name}<br><small>(${max})</small>`;
+            headerRow.insertBefore(newTh, totalHeader);
+
+            for (let row of tbody.rows) {
+                const totalCellIndex = row.cells.length - 1;
+                const newCell = row.insertCell(totalCellIndex);
+                newCell.innerHTML = `<input type="number" class="score-input" data-max="${max}" value="0" oninput="validateScore(this)">`;
+            }
+            closeModal();
+            Swal.fire('สำเร็จ', 'เพิ่มช่องกรอกคะแนนแล้ว', 'success');
+        }
+
+        function validateScore(input) {
+            const max = parseFloat(input.dataset.max);
+            let value = parseFloat(input.value) || 0;
+            if (value > max) {
+                Swal.fire('คะแนนเกิน!', `คะแนนเต็มคือ ${max}`, 'error');
+                input.value = max;
+                value = max;
+            }
+            if (value < 0) input.value = 0;
+            
+            const row = input.closest('tr');
+            const inputs = row.querySelectorAll('.score-input');
+            let sum = 0;
+            inputs.forEach(inp => sum += (parseFloat(inp.value) || 0));
+            row.querySelector('.total-cell').innerText = sum;
+        }
+
+        function handleLogout() {
+            Swal.fire({ title: 'ออกจากระบบ?', icon: 'warning', showCancelButton: true });
+        }
+    </script>
+</body>
+
+</html>
