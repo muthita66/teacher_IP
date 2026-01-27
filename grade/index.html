@@ -64,30 +64,43 @@
                 <div class="filter-container card">
                     <div class="filter-row">
                         <label>ปีการศึกษา :</label>
-                        <select class="select-small">
+                        <select class="select-small" id="selectYear">
                             <option>2567</option>
                             <option>2568</option>
                         </select>
-                        <label>ภาคเรียนที่ :</label>
-                        <select class="select-small">
+                        <label style="margin-left: 10px;">ภาคเรียนที่ :</label>
+                        <select class="select-small" id="selectTerm">
                             <option>1</option>
                             <option>2</option>
                         </select>
                     </div>
                     <div class="search-row-score">
                         <div class="class-label">วิชา :</div>
-                        <select class="select-class-score" style="min-width: 250px;">
-                            <option>ค10101 - คณิตศาสตร์พื้นฐาน</option>
+                        <select class="select-class-score" id="selectSubject" style="min-width: 250px;">
+                            <option value="K10101">ค10101 - คณิตศาสตร์พื้นฐาน</option>
                         </select>
+
                         <div class="class-label" style="margin-left: 15px;">ชั้นเรียน :</div>
-                        <select class="select-class-score">
-                            <option>มัธยมศึกษาชั้นปีที่ 1</option>
-                            <option>มัธยมศึกษาชั้นปีที่ 2</option>
-                            <option>มัธยมศึกษาชั้นปีที่ 3</option>
-                            <option>มัธยมศึกษาชั้นปีที่ 4</option>
-                            <option>มัธยมศึกษาชั้นปีที่ 5</option>
-                            <option>มัธยมศึกษาชั้นปีที่ 6</option>
+                        <select class="select-class-score" id="selectLevel">
+                            <option value="1">มัธยมศึกษาชั้นปีที่ 1</option>
+                            <option value="2">มัธยมศึกษาชั้นปีที่ 2</option>
+                            <option value="3">มัธยมศึกษาชั้นปีที่ 3</option>
+                            <option value="4">มัธยมศึกษาชั้นปีที่ 4</option>
+                            <option value="5">มัธยมศึกษาชั้นปีที่ 5</option>
+                            <option value="6">มัธยมศึกษาชั้นปีที่ 6</option>
                         </select>
+
+                        <div class="class-label" style="margin-left: 15px;">ห้อง :</div>
+                        <select class="select-class-score" id="selectRoom" style="min-width: 80px;">
+                            <option value="">ทั้งหมด</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+
                         <div class="search-box-score">
                             <i class="fas fa-search"></i>
                             <input type="text" id="searchInput" placeholder="ค้นหารายชื่อ...">
@@ -120,6 +133,7 @@
             </div>
         </main>
     </div>
+
     <div id="columnModal" class="modal">
         <div class="modal-content">
             <h3><i class="fas fa-plus-circle"></i> เพิ่มช่องงานใหม่</h3>
@@ -139,7 +153,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 
