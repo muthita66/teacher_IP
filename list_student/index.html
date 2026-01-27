@@ -1,75 +1,90 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WinAI - ระบบรายชื่อนักเรียน</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WinAI - รายชื่อนักเรียนที่ปรึกษา</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="logo-section">
+        <i class="fas fa-graduation-cap"></i>
+        <div class="logo-text">
+          <h3>WinAI International</h3>
+          <p>Semi UniverSchool</p>
+        </div>
+      </div>
 
-    <div class="app-container">
-        <aside class="sidebar">
-            <div class="logo-section">
-                <i class="fas fa-graduation-cap"></i>
-                <div class="logo-text">
-                    <h3>WinAI International</h3>
-                    <p>Semi UniverSchool</p>
-                </div>
-            </div>
-            
-            <nav class="menu">
-                <a class="menu-item active" data-page="home"><i class="fas fa-users"></i> รายชื่อนักเรียนที่ปรึกษา</a>
-                <a href="../Check_name/index.html" class="menu-item"><i class="fas fa-clock"></i> เช็คชื่อ</a>
-                <a href="../health/index.html" class="menu-item"><i class="fas fa-notes-medical"></i> บันทึกสุขภาพ</a>
-                <a href="../score_record/index.html" class="menu-item"><i class="fas fa-pen-to-square"></i> กรอกคะแนน</a>
-                <a href="../grade/index.html" class="menu-item"><i class="fas fa-medal"></i> ตัดเกรด</a>
-                <a class="menu-item"><i class="fas fa-chart-pie"></i> ผลการประเมิน</a>
-                <a class="menu-item"><i class="fas fa-chart-pie"></i> ประเมินนักเรียน</a>
-                <a class="menu-item"><i class="fas fa-calendar-days"></i> ปฏิทินกิจกรรม</a>
-            </nav>
+      <nav class="menu">
+        <a href="#" class="menu-item active"><i class="fas fa-users"></i> รายชื่อนักเรียนที่ปรึกษา</a>
+        <a href="../Check_name/index.html" class="menu-item"><i class="far fa-clock"></i> เช็คชื่อ</a>
+        <a href="../health/index.html" class="menu-item"><i class="far fa-plus-square"></i> บันทึกสุขภาพ</a>
+        <a href="../score_record/index.html" class="menu-item"><i class="far fa-edit"></i> กรอกคะแนน</a>
+        <a href="../grade/index.html" class="menu-item"><i class="fas fa-medal"></i> ตัดเกรด</a>
+        <a href="../teacher-evaluation/teacher-evaluation.html" class="menu-item"><i class="fas fa-chart-pie"></i> ผลการประเมิน</a>
+        <a href="../event_calendar/index.html"class="menu-item"><i class="far fa-calendar-alt"></i> ปฏิทินกิจกรรม</a>
+      </nav>
 
-            <div class="logout" id="logoutBtn">
-                <i class="fas fa-right-from-bracket"></i> ออกจากระบบ
-            </div>
-        </aside>
+      <div class="logout" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+      </div>
+    </aside>
 
-        <main class="main-content">
-            <header class="header-banner">
-                <h1>รายชื่อนักเรียน</h1>
-            </header>
+    <main class="main-content">
+      <header class="header-banner">
+        <h1><i class="fas fa-users"></i> รายชื่อนักเรียนที่ปรึกษา</h1>
+      </header>
 
-            <section class="filters-container">
-                <div class="filter-row">
-                    <label>ปีการศึกษา :</label>
-                    <select><option>2566</option><option>2567</option></select>
-                    <label>ภาคเรียนที่ :</label>
-                    <select><option>1</option><option>2</option></select>
-                </div>
-                <div class="filter-row">
-                    <label>เลือกชั้นเรียน :</label>
-                    <select class="class-select">
-                        <option>มัธยมศึกษาชั้นปีที่ 1</option>
-                        <option>มัธยมศึกษาชั้นปีที่ 2</option>
-                        <option>มัธยมศึกษาชั้นปีที่ 3</option>
-                        <option>มัธยมศึกษาชั้นปีที่ 4</option>
-                        <option>มัธยมศึกษาชั้นปีที่ 5</option>
-                        <option>มัธยมศึกษาชั้นปีที่ 6</option>
-                    </select>
-                </div>
-            </section>
+      <div class="content-wrapper">
+        <div class="filters">
+          <div class="filter-row">
+            <label>ปีการศึกษา:</label>
+            <select id="yearSelect">
+              <option value="2567">2567</option>
+              <option value="2568">2568</option>
+            </select>
 
-            <div class="student-grid" id="studentGrid">
-                </div>
-        </main>
-    </div>
+            <label>ภาคเรียนที่:</label>
+            <select id="termSelect">
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
 
-    <script src="script.js"></script>
+            <label>ชั้นเรียน:</label>
+            <select id="classSelect">
+              <option value="m1">ม.1</option>
+              <option value="m2">ม.2</option>
+              <option value="m3">ม.3</option>
+              <option value="m4">ม.4</option>
+              <option value="m5">ม.5</option>
+              <option value="m6">ม.6</option>
+            </select>
+          </div>
+
+          <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input id="searchInput" type="text" placeholder="ค้นหาชื่อ/รหัสนักเรียน...">
+          </div>
+
+          <div class="hint">
+            * คลิกการ์ดนักเรียนเพื่อเลือก → ปุ่มประเมินจะโผล่<br>
+            * ถ้าประเมินแล้ว จะขึ้นป้าย “ประเมินแล้ว” และเปลี่ยนเป็น “แก้ไขการประเมิน”
+          </div>
+        </div>
+
+        <div class="student-grid" id="studentGrid"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Activity Tracking</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo-section">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="logo-text">
+                    <h3>WinAI International</h3>
+                    <p>Semi UniverSchool</p>
+                </div>
+            </div>
+
+            <nav class="menu">
+                <a href="../list_student/index.html" class="menu-item" data-page="students"><i class="fas fa-users"></i>รายชื่อนักเรียนที่ปรึกษา</a>
+                <a href="../Check_name/index.html" class="menu-item"><i class="far fa-clock"></i> <span>เช็คชื่อ</span></a>
+                <a href="../health/index.html" class="menu-item"><i class="far fa-plus-square"></i> บันทึกสุขภาพ</a>
+                <a href="../score_record/index.html" class="menu-item"><i class="far fa-edit"></i> กรอกคะแนน</a>
+                <a href="../grade/index.html" class="menu-item"><i class="fas fa-medal"></i> ตัดเกรด</a>
+                <a href="../evaluation_results/index.html" class="menu-item"><i class="fas fa-chart-pie"></i> ผลการประเมิน</a>
+                <a href="#" class="menu-item active"><i class="far fa-calendar-alt"></i> ปฏิทินกิจกรรม</a>
+            </nav>
+
+            <div class="logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+            </div>
+        </aside>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9 main-content">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3 bg-white p-3 rounded shadow-sm">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-calendar-days fa-2x text-primary"></i>
+                            <div>
+                                <h5 class="mb-0 fw-bold">ปฏิทินกิจกรรม (Activity Calendar)</h5>
+                                <small class="text-muted">จัดการและติดตามกิจกรรมโรงเรียน</small>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary fw-bold" data-bs-toggle="modal"
+                                data-bs-target="#activityModal" onclick="resetForm()">
+                                <i class="fa-solid fa-plus me-1"></i> เพิ่มกิจกรรมใหม่
+                            </button>
+
+                            <a href="../evaluation form/maineva.html" class="btn btn-primary fw-bold">
+                                <i class="fa-solid fa-plus me-1"></i> เพิ่มแบบประเมินกิจกรรม
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 d-flex flex-wrap">
+                        <span class="filter-pill active"><i class="fa-solid fa-layer-group me-1"></i> ทั้งหมด</span>
+                        <span class="filter-pill"><i class="fa-solid fa-school me-1"></i> กิจกรรมภายใน</span>
+                        <span class="filter-pill"><i class="fa-solid fa-book me-1"></i> วิชาการ</span>
+                        <span class="filter-pill text-danger border-danger"><i
+                                class="fa-solid fa-umbrella-beach me-1"></i>
+                            วันหยุด</span>
+                        <span class="filter-pill text-success border-success"><i class="fa-solid fa-users me-1"></i>
+                            การประชุม</span>
+                    </div>
+
+                    <div class="calendar-card p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="btn-group">
+                                <button class="btn btn-outline-secondary btn-sm"><i
+                                        class="fa-solid fa-chevron-left"></i></button>
+                                <button class="btn btn-outline-secondary btn-sm">วันนี้</button>
+                                <button class="btn btn-outline-secondary btn-sm"><i
+                                        class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                            <h4 class="mb-0 fw-bold">มกราคม 2569</h4>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-secondary btn-sm active">เดือน</button>
+                                <button class="btn btn-outline-secondary btn-sm">สัปดาห์</button>
+                            </div>
+                        </div>
+
+                        <table class="calendar-table">
+                            <thead>
+                                <tr>
+                                    <th>อา.</th>
+                                    <th>จ.</th>
+                                    <th>อ.</th>
+                                    <th>พ.</th>
+                                    <th>พฤ.</th>
+                                    <th>ศ.</th>
+                                    <th>ส.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="calendar-date">28</span></td>
+                                    <td><span class="calendar-date">29</span></td>
+                                    <td><span class="calendar-date">30</span></td>
+                                    <td><span class="calendar-date">31</span></td>
+                                    <td>
+                                        <span class="calendar-date">1</span>
+                                        <div class="cal-event bg-event-holiday">วันขึ้นปีใหม่</div>
+                                    </td>
+                                    <td><span class="calendar-date">2</span></td>
+                                    <td><span class="calendar-date">3</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="calendar-date">4</span></td>
+                                    <td><span class="calendar-date">5</span></td>
+                                    <td><span class="calendar-date">6</span></td>
+                                    <td><span class="calendar-date">7</span></td>
+                                    <td><span class="calendar-date">8</span></td>
+                                    <td class="is-today">
+                                        <span class="calendar-date">9</span>
+                                        <div class="cal-event bg-event-other">Test Event API</div>
+                                        <div class="cal-event bg-event-meeting">ประชุมครู</div>
+                                    </td>
+                                    <td><span class="calendar-date">10</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="calendar-date">11</span></td>
+                                    <td><span class="calendar-date">12</span></td>
+                                    <td><span class="calendar-date">13</span></td>
+                                    <td><span class="calendar-date">14</span></td>
+                                    <td><span class="calendar-date">15</span></td>
+                                    <td><span class="calendar-date">16</span></td>
+                                    <td><span class="calendar-date">17</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="calendar-date">18</span></td>
+                                    <td><span class="calendar-date">19</span></td>
+                                    <td>
+                                        <span class="calendar-date">20</span>
+                                        <div class="cal-event bg-event-academic">สอบกลางภาค</div>
+                                    </td>
+                                    <td>
+                                        <span class="calendar-date">21</span>
+                                        <div class="cal-event bg-event-academic">สอบกลางภาค</div>
+                                    </td>
+                                    <td>
+                                        <span class="calendar-date">22</span>
+                                        <div class="cal-event bg-event-academic">สอบกลางภาค</div>
+                                    </td>
+                                    <td><span class="calendar-date">23</span></td>
+                                    <td><span class="calendar-date">24</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-3 pt-3">
+                    <div class="right-panel-card">
+                        <div class="panel-header header-orange">
+                            <i class="fa-regular fa-clock"></i> กิจกรรมที่กำลังจะมาถึง
+                        </div>
+                        <div class="upcoming-item">
+                            <div class="flex-shrink-0 text-center" style="width: 40px;">
+                                <div class="fw-bold text-danger">09</div>
+                                <div class="small">ม.ค.</div>
+                            </div>
+                            <div>
+                                <div class="fw-bold" style="font-size: 0.9rem;">ประชุมครูประจำเดือน</div>
+                                <div class="upcoming-date"><i class="fa-solid fa-location-dot"></i> ห้องประชุม 1</div>
+                            </div>
+                        </div>
+                        <div class="upcoming-item">
+                            <div class="flex-shrink-0 text-center" style="width: 40px;">
+                                <div class="fw-bold text-success">20</div>
+                                <div class="small">ม.ค.</div>
+                            </div>
+                            <div>
+                                <div class="fw-bold" style="font-size: 0.9rem;">สอบกลางภาคเรียนที่ 2</div>
+                                <div class="upcoming-date"><i class="fa-solid fa-clock"></i> 08:30 - 16:30</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-panel-card">
+                        <div class="panel-header header-blue">
+                            <i class="fa-solid fa-palette"></i> คำอธิบายสี
+                        </div>
+                        <div class="p-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-event-holiday rounded-circle p-2 me-2"> </span>
+                                <small>วันหยุดเรียน</small>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-event-academic rounded-circle p-2 me-2"> </span>
+                                <small>วิชาการ/สอบ</small>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-event-meeting rounded-circle p-2 me-2"> </span>
+                                <small>การประชุม</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-event-other rounded-circle p-2 me-2"> </span> <small>อื่นๆ</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="activityModal" tabindex="-1" data-bs-backdrop="static">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <h5 class="modal-title"><i class="fa-solid fa-calendar-plus me-2"></i>เพิ่มกิจกรรมใหม่</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <form id="activityForm">
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-8">
+                                    <label class="form-label form-label-req">หัวข้อกิจกรรม</label>
+                                    <input type="text" class="form-control" id="actTopic"
+                                        placeholder="เช่น กิจกรรมวันเด็กแห่งชาติ">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label form-label-req">ประเภท</label>
+                                    <select class="form-select" id="actType">
+                                        <option value="other">อื่นๆ</option>
+                                        <option value="academic">วิชาการ</option>
+                                        <option value="activity">กิจกรรมนักเรียน</option>
+                                        <option value="meeting">การประชุม</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-2">
+                                <div class="col-md-6">
+                                    <label class="form-label form-label-req">วันที่เริ่มต้น</label>
+                                    <input type="date" class="form-control" id="actStartDate">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">วันที่สิ้นสุด</label>
+                                    <input type="date" class="form-control" id="actEndDate">
+                                </div>
+                            </div>
+
+                            <div class="mb-3 d-flex gap-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkAllDay" checked>
+                                    <label class="form-check-label text-primary" for="checkAllDay"><i
+                                            class="fa-solid fa-clock me-1"></i> กิจกรรมทั้งวัน</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkHoliday">
+                                    <label class="form-check-label text-danger" for="checkHoliday"><i
+                                            class="fa-solid fa-umbrella-beach me-1"></i> วันหยุดเรียน</label>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-light rounded border mb-3">
+                                <h6 class="text-muted mb-2" style="font-size: 0.85rem;"><i
+                                        class="fa-solid fa-file-invoice-dollar me-1"></i> ข้อมูลสำหรับอนุมัติ (Swimlane
+                                    Workflow)</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">ครูผู้รับผิดชอบ</label>
+                                        <select class="form-select" id="actTeacher">
+                                            <option value="">เลือกครู...</option>
+                                            <option value="T001">อ.สมชาย ใจดี</option>
+                                            <option value="T002">อ.วิษณุพร สุขพันธ์</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">งบประมาณ (บาท)</label>
+                                        <input type="number" class="form-control" id="actBudget" placeholder="0.00">
+                                        <div class="form-text text-danger d-none" id="budgetAlert">⚠️
+                                            งบประมาณเกินเพดานที่กำหนด!</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">สถานที่</label>
+                                <input type="text" class="form-control" id="actLocation"
+                                    placeholder="เช่น หอประชุมใหญ่">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">รายละเอียด</label>
+                                <textarea class="form-control" rows="3" id="actDesc"
+                                    placeholder="รายละเอียดเพิ่มเติม..."></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">สีกิจกรรม</label>
+                                <div class="d-flex gap-2">
+                                    <div class="color-option bg-primary" onclick="selectColor(this)"></div>
+                                    <div class="color-option bg-success" onclick="selectColor(this)"></div>
+                                    <div class="color-option bg-danger" onclick="selectColor(this)"></div>
+                                    <div class="color-option bg-warning" onclick="selectColor(this)"></div>
+                                    <div class="color-option bg-info" onclick="selectColor(this)"></div>
+                                    <div class="color-option bg-secondary active" onclick="selectColor(this)"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary border-0" data-bs-dismiss="modal">ยกเลิก</button>
+                        <button type="button" class="btn btn-primary px-4" onclick="saveAndApprove()">
+                            <i class="fa-solid fa-save me-1"></i> บันทึกและส่งอนุมัติ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

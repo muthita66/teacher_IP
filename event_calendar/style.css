@@ -1,0 +1,301 @@
+:root {
+    --primary-color: #632b2b;
+    --bs-primary: #0d6efd;
+    --bs-warning: #ffc107;
+
+    --bs-danger: #dc3545;
+    --bs-success: #198754;
+    --bg-light: #f3f6f9;
+    --sidebar-width: 280px;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--bg-light);
+    overflow-x: hidden;
+}
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* --- Sidebar--- */
+.sidebar {
+    width: var(--sidebar-width);
+    background: white;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column; /* จัดเรียงเป็นแนวตั้ง */
+    height: 100vh; /* ให้ความสูงเท่ากับหน้าจอพอดี */
+    position: sticky;
+    top: 0;
+}
+.logo-section {
+    padding: 25px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.logo-section i {
+    font-size: 30px;
+    color: var(--primary-color);
+}
+
+.logo-text h3 {
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.logo-text p {
+    font-size: 11px;
+    color: #888;
+}
+
+.menu {
+  flex-grow: 1;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column
+}
+
+.menu-item {
+  text-decoration: none;
+  padding: 14px 25px;
+  color: #555;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item i {
+  margin-right: 12px;
+  width: 25px;
+  text-align: center;
+  font-size: 18px
+}
+
+.menu-item:hover:not(.active) {
+  background: #f8f9fa;
+  color: var(--primary-color);
+  padding-left: 35px;
+}
+
+.menu-item.active {
+  background: var(--primary-color);
+  color: #fff;
+  box-shadow: 4px 0 0 inset #333;
+}
+
+.logout {
+  padding: 20px 25px;
+  color: #e74c3c;
+  border-top: 1px solid #eee;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logout:hover {
+  background: #fff5f5
+}
+
+
+/* --- Layout --- */
+.main-content {
+    padding: 20px;
+}
+
+/* --- Calendar Styling --- */
+.calendar-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.filter-pill {
+    border-radius: 50px;
+    font-size: 0.85rem;
+    padding: 6px 16px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid #e9ecef;
+    background: white;
+    color: #6c757d;
+}
+
+.filter-pill:hover,
+.filter-pill.active {
+    background-color: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+}
+
+/* Calendar Grid */
+.calendar-table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th {
+    text-align: center;
+    color: var(--bs-primary);
+    padding: 15px 0;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+}
+
+.calendar-table td {
+    height: 120px;
+    vertical-align: top;
+    border: 1px solid #f1f5f9;
+    padding: 8px;
+    position: relative;
+    transition: 0.2s;
+}
+
+.calendar-table td:hover {
+    background-color: #f8faff;
+}
+
+.calendar-date {
+    font-weight: 500;
+    color: #adb5bd;
+    margin-bottom: 5px;
+    display: block;
+    text-align: right;
+}
+
+.is-today {
+    background-color: #eef2ff;
+}
+
+.is-today .calendar-date {
+    background: var(--bs-primary);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Events in Calendar */
+.cal-event {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 3px;
+    color: white;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bg-event-holiday {
+    background-color: #dc3545;
+}
+
+.bg-event-academic {
+    background-color: #198754;
+}
+
+.bg-event-meeting {
+    background-color: #6f42c1;
+}
+
+.bg-event-other {
+    background-color: #6c757d;
+}
+
+/* --- Right Sidebar (Upcoming) --- */
+.right-panel-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 12px 15px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-orange {
+    background-color: #fd7e14;
+}
+
+.header-blue {
+    background-color: #0dcaf0;
+}
+
+.upcoming-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.upcoming-date {
+    font-size: 0.8rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* --- Modal Customization (from IMG_0765) --- */
+.modal-header-custom {
+    background-color: #2c7be5;
+    color: white;
+}
+
+/* Blue header */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+}
+
+.form-label-req::after {
+    content: " *";
+    color: #dc3545;
+}
+
+.input-group-text {
+    background-color: white;
+    border-right: 0;
+}
+
+.form-control-icon {
+    border-left: 0;
+}
+
+.color-option {
+    width: 100%;
+    height: 35px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.color-option.active {
+    border-color: #333;
+    transform: scale(0.95);
+}
