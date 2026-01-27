@@ -1,0 +1,310 @@
+/* --- การตั้งค่าพื้นฐานสำหรับหน้าจอเต็ม --- */
+:root {
+    --primary-color: #632b2b; /* สีน้ำตาลหลักจากโลโก้ */
+    --sidebar-width: 260px;
+    --accent-blue: #00008b; /* สีน้ำเงินเข้มหัวตาราง */
+    --bg-light: #f8f9fa;
+    --text-main: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Sarabun', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: flex;
+    width: 100%;
+}
+
+/* --- Sidebar--- */
+.sidebar {
+    width: var(--sidebar-width);
+    background: white;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo-section {
+    padding: 25px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.logo-section i {
+    font-size: 30px;
+    color: var(--primary-color);
+}
+
+.logo-text h3 {
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.logo-text p {
+    font-size: 11px;
+    color: #888;
+}
+
+.menu {
+    flex-grow: 1;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    text-decoration: none;
+    padding: 14px 25px;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item i {
+    margin-right: 12px;
+    width: 25px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.menu-item:hover:not(.active) {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+    padding-left: 35px;
+}
+
+.menu-item.active {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 4px 0 0 inset #333;
+}
+
+.logout {
+    padding: 20px 25px;
+    color: #e74c3c;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.logout:hover {
+    background: #fff5f5;
+}
+
+/* --- Main Content (ขยายเต็มพื้นที่ด้านขวา) --- */
+.main-content {
+    margin-left: var(--sidebar-width); /* เว้นที่เท่ากับ Sidebar */
+    flex-grow: 1;
+    width: calc(100% - var(--sidebar-width));
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+.header-banner-health {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    margin: 20px 40px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.content-wrapper {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* --- Filter & Search Section (ชิดซ้ายและมีระยะห่าง) --- */
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* ระยะห่างระหว่างแถวบนและล่าง */
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.select-small {
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: white;
+    min-width: 80px;
+}
+
+.search-row-health {
+    display: flex;
+    flex-direction: row; /* ปรับให้เลือกชั้นเรียนอยู่ด้านบน */
+    align-items: flex-start;
+    gap: 15px; /* ระยะห่างระหว่างเลือกชั้นเรียนกับกล่องค้นหา */
+    width: 100%;
+}
+
+.class-label-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.class-label {
+    color: var(--accent-blue);
+    font-weight: bold;
+}
+
+.select-class-health {
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    min-width: 100px;
+}
+
+.search-box-health {
+    position: relative;
+    width: 320px;
+}
+
+.search-box-health i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.search-box-health input {
+    width: 100%;
+    padding: 10px 15px 10px 42px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box-health input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(99, 43, 43, 0.1);
+}
+
+/* --- Health Table (ตารางแสดงผล) --- */
+.table-container-health {
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.health-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.health-table thead th {
+    background-color: var(--accent-blue);
+    color: white;
+    padding: 15px;
+    font-weight: normal;
+    border: 1px solid #ddd;
+}
+
+.health-table tbody td {
+    padding: 12px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.btn-edit-action {
+    background-color: #f1c40f;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-edit-action:hover {
+    background-color: #d4ac0d;
+    transform: translateY(-1px);
+}
+
+/* --- Footer Buttons --- */
+.footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-bottom: 50px;
+}
+
+.btn-save-green {
+    background-color: #1b854d;
+    color: white;
+    border: none;
+    padding: 10px 45px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-cancel-gray {
+    background-color: #717171;
+    color: white;
+    border: none;
+    padding: 10px 45px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* --- Modal Edit Form (สำหรับ SweetAlert2) --- */
+.swal-edit-form {
+    padding: 10px;
+}
+
+.swal-edit-form label {
+    font-family: 'Sarabun', sans-serif;
+    color: #444;
+}
+
+.swal2-input, .swal2-textarea, .swal2-select {
+    font-family: 'Sarabun', sans-serif !important;
+    font-size: 15px !important;
+}

@@ -1,0 +1,332 @@
+/* --- การตั้งค่าพื้นฐาน (คงเดิม) --- */
+:root {
+    --primary-color: #632b2b;
+    --sidebar-width: 260px;
+    --accent-blue: #00008b; /* สีน้ำเงินเข้มหัวตาราง */
+    --bg-light: #f8f9fa;
+    --text-main: #333;
+    --success-green: #1b854d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Sarabun', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: flex;
+    width: 100%;
+}
+
+/* --- Sidebar (คงเดิมตามเมนูหลัก) --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background: white;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo-section {
+    padding: 25px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.logo-section i {
+    font-size: 30px;
+    color: var(--primary-color);
+}
+
+.logo-text h3 {
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.logo-text p {
+    font-size: 11px;
+    color: #888;
+}
+
+.menu {
+    flex-grow: 1;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    text-decoration: none;
+    padding: 14px 25px;
+    color: #555;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item i {
+    margin-right: 12px;
+    width: 25px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.menu-item:hover:not(.active) {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+    padding-left: 35px;
+}
+
+.menu-item.active {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 4px 0 0 inset #333;
+}
+.logout {
+    padding: 20px 25px;
+    color: #e74c3c;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Main Content (ขยายเต็มพื้นที่ด้านขวา) --- */
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex-grow: 1;
+    width: calc(100% - var(--sidebar-width));
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Header Banner สำหรับหน้ากรอกคะแนน */
+.header-banner-score {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    margin: 20px 40px; 
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.header-banner-score .icon-bg {
+    background: white;
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-banner-score i {
+    color: var(--primary-color);
+    font-size: 28px;
+}
+
+.header-banner-score span {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.content-wrapper {
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- ส่วนตัวเลือก (Filter Section) --- */
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* ระยะห่างระหว่างแถวบนและล่าง */
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.select-small {
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: white;
+    min-width: 80px;
+}
+
+.search-row-score {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.class-label-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.class-label {
+    color: var(--accent-blue);
+    font-weight: bold;
+}
+
+.select-class-score {
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    min-width: 100px;
+}
+.search-box-score {
+    position: relative;
+    width: 320px;
+}
+
+.search-box-score i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.search-box-score input {
+    width: 100%;
+    padding: 10px 15px 10px 42px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box-score input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(99, 43, 43, 0.1);
+}
+
+/* --- ตารางคะแนน (Score Table) --- */
+.table-container-score {
+    background-color: #e8efff; /* สีฟ้าอ่อนเหนือตาราง */
+    padding: 12px 20px;
+    border-radius: 12px 12px 0 0;
+    color: var(--accent-blue);
+    font-weight: bold;
+    border-left: 6px solid var(--accent-blue);
+}
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container-score {
+    width: 100%;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+}
+
+.score-table thead th {
+    background-color: #2e41b6; /* สีน้ำเงินหัวตารางตามรูป */
+    color: white;
+    padding: 15px 10px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 14px;
+}
+
+.score-table tbody td {
+    padding: 10px;
+    border: 1px solid #eee;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* ช่องสำหรับกรอกคะแนน */
+.score-input-box {
+    width: 65px;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.score-input-box:focus {
+    border-color: var(--primary-color);
+    background-color: #fff9f9;
+    outline: none;
+}
+
+/* คอลัมน์เครื่องหมาย + สีเทาอ่อน */
+.col-divider {
+    background-color: #f4f4f4;
+    width: 40px;
+}
+
+/* คอลัมน์คะแนนรวมสีน้ำตาล WinAI */
+.col-total {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 16px;
+}
+
+/* --- Footer Buttons --- */
+.footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-bottom: 50px;
+}
+
+.btn-save-green {
+    background-color: #1b854d;
+    color: white;
+    border: none;
+    padding: 10px 45px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-cancel-gray {
+    background-color: #717171;
+    color: white;
+    border: none;
+    padding: 10px 45px;
+    border-radius: 25px;
+    cursor: pointer;
+}
