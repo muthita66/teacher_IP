@@ -12,98 +12,119 @@
 </head>
 
 <body>
-    <div class="app-container">
-        <aside class="sidebar">
-            <div class="logo-section">
-                <i class="fas fa-graduation-cap"></i>
-                <div class="logo-text">
-                    <h3>WinAI International</h3>
-                    <p>Semi UniverSchool</p>
+    <aside class="sidebar">
+        <div class="logo-section">
+            <i class="fas fa-graduation-cap"></i>
+            <div class="logo-text">
+                <h3>WinAI International</h3>
+                <p>Semi UniverSchool</p>
+            </div>
+        </div>
+        <nav class="menu">
+            <a href="#" class="menu-item"><i class="fas fa-users"></i> รายชื่อนักเรียนที่ปรึกษา</a>
+
+            <a href="../Check_name/index.html" class="menu-item"><i class="fas fa-clock"></i> เช็คชื่อ</a>
+            <a href="../health/index.html" class="menu-item"><i class="fas fa-notes-medical"></i> บันทึกสุขภาพ</a>
+
+            <a href="../score_record/index.html" class="menu-item active"><i class="fas fa-pen-to-square"></i>
+                กรอกคะแนน</a>
+
+            <a href="../grade/index.html" class="menu-item"><i class="fas fa-medal"></i> ตัดเกรด</a>
+            <a class="menu-item"><i class="fas fa-chart-pie"></i> ผลการประเมิน</a>
+            <a class="menu-item"><i class="fas fa-chart-pie"></i> ประเมินนักเรียน</a>
+            <a class="menu-item"><i class="fas fa-calendar-days"></i> ปฏิทินกิจกรรม</a>
+        </nav>
+
+        <div class="logout" id="logoutBtn">
+            <i class="fas fa-right-from-bracket"></i> ออกจากระบบ
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header-banner">
+            <i class="fas fa-edit"></i> ระบบบันทึกคะแนนนักเรียน
+        </div>
+
+        <div class="card">
+            <div class="filter-section">
+                <div class="filter-row">
+                    <span class="filter-label">ปีการศึกษา :</span>
+                    <select>
+                        <option>2567</option>
+                        <option>2568</option>
+                    </select>
+
+                    <span class="filter-label">ภาคเรียนที่ :</span>
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+
+                <div class="filter-row">
+                    <span class="filter-label" style="color: blue;">เลือกชั้นเรียน :</span>
+                    <select>
+                        <option>มัธยมศึกษาชั้นปีที่ 1</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 2</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 3</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 4</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 5</option>
+                        <option>มัธยมศึกษาชั้นปีที่ 6</option>
+                    </select>
+
+                    <span class="filter-label" style="color: blue;">เลือกวิชา :</span>
+                    <select id="subjectSelect" class="select-subject" onchange="updateUI()">
+                        <option value="ว10101 - วิทยาศาสตร์">ว10101 - วิทยาศาสตร์</option>
+                        <option value="ค10101 - คณิตศาสตร์">ค10101 - คณิตศาสตร์</option>
+                        <option value="อ10101 - ภาษาอังกฤษ">อ10101 - ภาษาอังกฤษ</option>
+                    </select>
+
+                    <button class="btn-add-col" onclick="openModal()">
+                        <i class="fas fa-plus-circle"></i> เพิ่มช่องงาน/สอบ
+                    </button>
                 </div>
             </div>
+        </div>
 
-            <nav class="menu">
-                <a href="../list_student/index.html" class="menu-item"><i class="fas fa-users"></i> รายชื่อนักเรียนที่ปรึกษา</a>
-                <a href="../Check_name/index.html" class="menu-item"><i class="far fa-clock"></i> เช็คชื่อ</a>
-                <a href="../health/index.html" class="menu-item"><i class="fas fa-heartbeat"></i> บันทึกสุขภาพนักเรียน</a>
-                <a href="#" class="menu-item active"><i class="far fa-edit"></i> กรอกคะแนน</a>
-                <a href="../grade/index.html" class="menu-item"><i class="fas fa-medal"></i> ตัดเกรด</a>
-                <a href="#" class="menu-item"><i class="fas fa-chart-pie"></i> ผลการประเมิน</a>
-                <a class="menu-item"><i class="fas fa-chart-pie"></i> ประเมินนักเรียน</a>
-                <a href="#" class="menu-item"><i class="far fa-calendar-alt"></i> ปฏิทินกิจกรรม</a>
-            </nav>
+        <div class="table-section">
+            <div id="displaySubject" class="table-info-bar">ว10101 - วิทยาศาสตร์</div>
+            <table id="mainTable">
+                <thead>
+                    <tr id="headerRow">
+                        <th width="70">เลขที่</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th id="totalHeader" width="100">รวม</th>
+                    </tr>
+                </thead>
+                <tbody id="studentList">
+                </tbody>
+            </table>
+        </div>
+    </main>
 
-            <div class="logout" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+    <div id="workModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 15px;">รายละเอียดงานใหม่</h3>
+            <div class="form-group">
+                <label>ประเภท:</label>
+                <select id="workType">
+                    <option value="งาน">คะแนนงาน</option>
+                    <option value="สอบ">คะแนนสอบ</option>
+                </select>
             </div>
-        </aside>
-
-        <main class="main-content">
-            <header class="header-banner-score" style="background-color: #632b2b;"> <div class="banner-content">
-                    <i class="fas fa-clipboard-check"></i>
-                    <span>ระบบบันทึกคะแนนนักเรียน</span>
-                </div>
-            </header>
-
-            <div class="content-wrapper">
-                <div class="filter-container">
-                    <div class="filter-row">
-                        <label>ปีการศึกษา :</label>
-                        <select class="select-small">
-                            <option>2567</option>
-                            <option>2568</option>
-                        </select>
-                        <label>ภาคเรียนที่ :</label>
-                        <select class="select-small">
-                            <option>1</option>
-                            <option>2</option>
-                        </select>
-                    </div>
-
-                    <div class="search-row-score">
-                        <div class="class-label">วิชา :</div>
-                        <select class="select-class-score" style="min-width: 250px;">
-                            <option>ค10101 - คณิตศาสตร์พื้นฐาน</option>
-                            <option>ว10101 - วิทยาศาสตร์</option>
-                            <option>ท10101 - ภาษาไทย</option>
-                        </select>
-                        
-                        <div class="class-label" style="margin-left: 15px;">ชั้นเรียน :</div>
-                        <select class="select-class-score">
-                            <option>มัธยมศึกษาชั้นปีที่ 1</option>
-                            <option>มัธยมศึกษาชั้นปีที่ 2</option>
-                        </select>
-
-                        <div class="search-box-score">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="ค้นหารายชื่อ...">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="table-container-score card">
-                    <table class="score-table">
-                        <thead>
-                            <tr>
-                                <th width="80">เลขที่</th>
-                                <th>ชื่อ-นามสกุล</th>
-                                <th width="100">งาน 1 (20)</th>
-                                <th width="100">งาน 2 (20)</th>
-                                <th width="100">กลางภาค (30)</th>
-                                <th width="100">ปลายภาค (30)</th>
-                                <th width="100">รวม (100)</th>
-                                <th width="100">แก้ไข</th>
-                            </tr>
-                        </thead>
-                        <tbody id="scoreTableBody">
-                            </tbody>
-                    </table>
-                </div>
-                <div class="footer-actions">
-                    <button class="btn-save-green" id="saveAllScores">บันทึกคะแนน</button>
-                </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <label>ชื่อ:</label>
+                <input type="text" id="workName" placeholder="เช่น งานที่ 1"
+                    style="padding:8px; border-radius:5px; border:1px solid #ccc;">
+                <label>คะแนนเต็ม:</label>
+                <input type="number" id="maxScore" value="10" min="1"
+                    style="padding:8px; border-radius:5px; border:1px solid #ccc;">
             </div>
-        </main>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                <button onclick="closeModal()" style="padding:8px 15px; cursor:pointer;">ยกเลิก</button>
+                <button class="btn-add-col" onclick="confirmAddColumn()" style="margin-left:0;">ยืนยันเพิ่ม</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
