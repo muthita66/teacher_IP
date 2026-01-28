@@ -44,6 +44,15 @@ function confirmAddColumn() {
     closeModal();
     Swal.fire('สำเร็จ', 'เพิ่มช่องกรอกคะแนนแล้ว', 'success');
 }
+// แก้ไขฟังก์ชันเปิด Modal ให้แสดงผลแบบ Flex
+function openModal() { 
+    document.getElementById('workModal').style.display = 'flex'; 
+}
+
+// ฟังก์ชันปิด Modal (คงเดิม)
+function closeModal() { 
+    document.getElementById('workModal').style.display = 'none'; 
+}
 
 function validateScore(input) {
     const max = parseFloat(input.dataset.max);
